@@ -7,5 +7,5 @@ from .models import Note, Item
 def index(request):
     return HttpResponse("Hello world")
 
-class NoteList(generic.ListView):
+class NoteListView(generic.ListView):
     model = Note
