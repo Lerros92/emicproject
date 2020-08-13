@@ -1,0 +1,45 @@
+{% extends 'warranty/layout.html'%}
+{% block title%}Notes Warranty{% endblock %}
+{% block content %}
+
+        {% if item_list %}
+        <h1 class="text-center">Danh sách sản phẩm bảo hành</h1>
+        <table data-toggle="table" data-search="true" data-resizable="true">
+            <thead>
+                <tr>
+                    <th data-width="5" data-width-unit="%">Số phiếu<br>tiếp nhận</th>
+                    <th data-width="20" data-width-unit="%">Tên sản phẩm</th>
+                    <th data-width="5" data-width-unit="%">Số<br>lượng</th>
+                    <th data-width="10" data-width-unit="%">Nhóm<br>sản<br>phẩm</th>
+                    <th data-width="10" data-width-unit="%">Tình trạng<br>tiếp nhận</th>
+                    <th data-width="10" data-width-unit="%">Đánh giá</th>
+                    <th data-width="10" data-width-unit="%">Kết luận</th>
+                    <th data-width="5" data-width-unit="%">Deadline</th>
+                    <th data-width="5" data-width-unit="%">Tiến độ</th>
+                    <th data-width="20" data-width-unit="%">Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for item in item_list %}
+                <tr>
+                    <td>{{ item.noteNumber.noteNumber }}</td>
+                    <td>{{ item.itemName }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.get_itemGroup_display }}</td>
+                    <td>{{ item.status }}</td>
+                    <td>{{ item.check }}</td>
+                    <td>{{ item.conclude }}</td>
+                    <td>{{ item.deadline|date:"j/n/Y" }}</td>
+                    <td>{{ item.get_done_display }}</td>
+                    <td>{{ item.note }}</td>
+                </tr>
+                {% endfor %}
+                    
+            </tbody>
+        </table>
+        {% else %}
+        <div class="text-center">Chưa có phiếu tiếp nhận nào</div>
+        {% endif %}
+
+{% endblock %}
