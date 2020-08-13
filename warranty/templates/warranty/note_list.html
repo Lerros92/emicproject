@@ -1,0 +1,33 @@
+{% extends 'warranty/layout.html'%}
+{% block title%}Notes Warranty{% endblock %}
+{% block content %}
+
+        {% if note_list %}
+        <h1 class="text-center">Danh sách phiếu tiếp nhận</h1>
+        <table data-toggle="table" data-search="true">
+            <thead>
+                <tr>
+                    <th>Số phiếu</th>
+                    <th>Khách hàng</th>
+                    <th>Ngày tiếp nhận</th>
+                    <th>Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for note in note_list %}
+                <tr>
+                    <td>{{ note.noteNumber }}</td>
+                    <td>{{ note.customers }}</td>
+                    <td>{{ note.receiveDay|date:"j/n/Y" }}</td>
+                    <td>{{ note.note }}</td>
+                </tr>
+                {% endfor %}
+                    
+            </tbody>
+        </table>
+        {% else %}
+        <div>There is no note</div>
+        {% endif %}
+
+{% endblock %}
