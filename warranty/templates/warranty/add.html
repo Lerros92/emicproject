@@ -1,0 +1,21 @@
+{% extends 'baohanh/layout.html'%}
+{% block title%}Thêm phiếu tiếp nhận{% endblock %}
+{% block content %}
+<h1>Thêm phiếu tiếp nhận</h1>
+<form action="{% url 'baohanh:add' %}" method="POST">{% csrf_token %}
+    <div class="form-group">
+        <label for="id_noteNumber">Số phiếu:</label>
+        <input class="form-control" type="text" name="noteNumber" maxlength="10" required id="id_noteNumber">
+    </div>
+    <div class="form-group">
+        <label for="id_customers">Khách hàng:</label>
+        <input class="form-control" type="text" name="customers" maxlength="50" required id="id_customers">
+    </div>
+    <div class="form-group">
+        <label for="id_note">Ghi chú:</label>
+        <textarea class="form-control" name="note" cols="40" rows="10" required id="id_note"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
+</form>
+
+{% endblock %}

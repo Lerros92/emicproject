@@ -1,0 +1,41 @@
+{% extends 'baohanh/layout.html'%}
+{% block title%}Danh sách sản phẩm bảo hành{% endblock %}
+{% block content %}
+<h1>Danh sách sản phẩm bảo hành</h1>
+<table data-toggle="table" data-search="true">
+    <thead>
+        <tr>
+            <th>Số phiếu tiếp nhận</th>
+            <th>Tên sản phẩm</th>
+            <th>Số lượng</th>
+            <th>Nhóm sản phẩm</th>
+            <th>Tình trạng tiếp nhận</th>
+            <th>Đánh giá</th>
+            <th>Kết luận</th>
+            <th>Deadline</th>
+            <th>Tiến độ</th>
+            <th>Ghi chú</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        {% for item in items %}
+            <tr>
+                <td>
+                    <a href="{% url 'baohanh:notedetail' item.noteNumber.id   %}">{{ item.noteNumber.noteNumber }}</a>
+                </td>
+                <td>{{ item.itemName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.get_itemGroup_display }}</td>
+                <td>{{ item.status }}</td>
+                <td>{{ item.check }}</td>
+                <td>{{ item.conclude }}</td>
+                <td>{{ item.deadline|date:"j/n/Y" }}</td>
+                <td>{{ item.get_done_display }}</td>
+                <td>{{ item.note }}</td>
+            </tr>
+        {% endfor %}
+            
+    </tbody>
+</table>
+{% endblock %}
