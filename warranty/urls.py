@@ -6,4 +6,5 @@ app_name = "warranty"
 urlpatterns = [
     path('', views.index, name = "index"),
     path('notes', views.NoteListView.as_view(), name = 'notes'),
+    path('items', views.ItemListView.as_view(), name = 'items'),
 ]

@@ -9,3 +9,6 @@ def index(request):
 
 class NoteListView(generic.ListView):
     model = Note
+
+class ItemListView(generic.ListView):
+    model = Item
