@@ -3,10 +3,10 @@ from datetime import datetime, timedelta
 # Create your models here.
 
 class Note(models.Model):
-    noteNumber = models.CharField(max_length=10, unique=True)
+    noteNumber = models.CharField(max_length=10, unique=True,error_messages={'unique':"Số phiếu này đã có"})
     customers = models.CharField(max_length=50, null=False)
     receiveDay = models.DateField(null=False)
-    note = models.TextField()
+    note = models.TextField(blank=True)
 
     def __str__(self):
         return f"{self.noteNumber} - {self.customers} - {self.receiveDay}"

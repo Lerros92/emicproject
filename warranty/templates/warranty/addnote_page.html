@@ -1,10 +1,15 @@
-{% extends 'baohanh/layout.html'%}
-{% block title%}Add Note{% endblock %}
+{% extends 'warranty/layout.html'%}
+{% load crispy_forms_tags %}
+{% block title%}Thêm phiếu tiếp nhận{% endblock %}
 {% block content %}
-<form action="{% url 'baohanh:addnote' %}" method="post">{% csrf_token %}
-    <div class="form-group">
-        {{ form }}
-        <button type="submit" class="btn btn-primary">Save</button>
+
+<form action="{% url 'warranty:add_note' %}" method="post">{% csrf_token %}
+    <div>
+        <h1 class="text-center">Thêm mới phiếu tiếp nhận</h1>
     </div>
+    {{ form.non_field_errors }}
+        {{ form|crispy }}
+
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
 </form>
 {% endblock %}

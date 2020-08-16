@@ -1,7 +1,7 @@
-{% extends 'baohanh/layout.html'%}
+{% extends 'warranty/layout.html'%}
 {% block title%}Chi tiết phiếu tiếp nhận số {{ noteNumber.noteNumber }}{% endblock %}
 {% block content %}
-<h1>Danh sách sản phẩm của phiếu tiếp nhận số {{ noteNumber.noteNumber }}</h1>
+<h1>Danh sách sản phẩm bảo hành của phiếu tiếp nhận số {{ noteNumber.noteNumber }}</h1>
 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#formModal">Thêm sản
     phẩm</button>
 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
