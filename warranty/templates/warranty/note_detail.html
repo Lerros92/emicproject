@@ -14,64 +14,15 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{% url 'baohanh:notedetail' noteNumber.id %}" method="POST">{% csrf_token %}
-                    <input type="hidden" name="noteNumber" value="{{ noteNumber.id }}" id="id_noteNumber" required>
-                    <div class="form-group">
-                        <label for="id_itemName">Tên sản phẩm:</label>
-                        <input class="form-control" type="text" name="itemName" maxlength="60" required
-                            id="id_itemName">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_quantity">Số lượng:</label>
-                        <input class="form-control" type="number" name="quantity" required id="id_quantity">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_itemGroup">Nhóm sản phẩm:</label>
-                        <select class="form-control" id="id_itemGroup" name="itemGroup">
-                            <option value="TIDAU24">TI dầu 24kV</option>
-                            <option value="TUDAU24">TU dầu 24kV</option>
-                            <option value="TIKHO24I">TI khô 24kV trong nhà</option>
-                            <option value="TIKHO24O">TI khô 24kV ngoài trời</option>
-                            <option value="TIHT">TI hạ thế</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_status">Tình trạng tiếp nhận:</label>
-                        <input class="form-control" type="text" name="status" maxlength="128" id="id_status">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_check">Kiểm tra, đánh giá:</label>
-                        <input class="form-control" type="text" name="check" maxlength="128" id="id_check">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_conclude">Kết luận:</label>
-                        <input class="form-control" name="conclude" maxlength="128" id="id_conclude">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_deadline">Deadline:</label>
-                        <input type="date" name="deadline" required id="id_deadline">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_note">Ghi chú:</label>
-                        <textarea class="form-control" name="note" cols="40" rows="2" id="id_note"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="id_done">Xong/ Chưa xong:</label>
-                        <select class="form-control" name="done" id="id_done">
-                            <option value="True">Xong</option>
-                            <option value="False" selected>Chưa xong</option>
-                        </select>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Đóng</button>
-                        <button type="submit" class="btn btn-outline-primary">Thêm sản phẩm</button>
-                    </div>
+                <form action="" method="POST">{% csrf_token %}
+                    
                 </form>
             </div>
 
         </div>
     </div>
 </div>
+{%%}
 <table data-toggle="table" data-search="true">
     <thead>
         <tr>

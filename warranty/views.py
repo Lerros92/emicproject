@@ -49,7 +49,18 @@ def AddNote(request):
         return render(request,'warranty/addnote_page.html',{'form':form})
 
 def NoteDetail(request, pk):
-    pass
+    if request.method == 'POST':
+        pass
+    else:
+        try:
+            note_detail = Note.objects.get(id=int(pk))
+        except:
+            return HttpResponse('Error')
+        context = {
+            'note_detail': note_detail,
+            'items': note_detail.item.all()
+        }
+        return render(request, 'note_detail.html', context)
 
 class ItemUpdate(generic.UpdateView):
     model = Item
