@@ -39,3 +39,12 @@ class ItemAddForm(forms.ModelForm):
         widgets = {
         'deadline': DateInput(),
         }
+
+class NoteUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Note
+        fields = '__all__'
+        widgets = {
+            'noteNumber': forms.HiddenInput(),
+            'receiveDay': DateInput()
+        }

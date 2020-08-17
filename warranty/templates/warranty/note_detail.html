@@ -1,7 +1,9 @@
 {% extends 'warranty/layout.html'%}
-{% block title%}Chi tiết phiếu tiếp nhận số {{ noteNumber.noteNumber }}{% endblock %}
+{% load crispy_forms_tags %}
+{% block title%}{{ note_detail }}{% endblock %}
 {% block content %}
-<h1>Danh sách sản phẩm bảo hành của phiếu tiếp nhận số {{ noteNumber.noteNumber }}</h1>
+<h1>{{ note_detail }}</h1>
+<hr>
 <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#formModal">Thêm sản
     phẩm</button>
 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
@@ -14,15 +16,19 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">{% csrf_token %}
-                    
+                <form action="{% url 'warranty:item_add' %}" method="post">{% csrf_token %}
+                    <input type="hidden" name="noteNumber" value="{{ note_detail.id }}">
+                    {{ form|crispy }}
+                
+                <button type="submit" class="btn btn-primary">Thêm</button>
                 </form>
             </div>
 
         </div>
     </div>
 </div>
-{%%}
+
+{% if items %}
 <table data-toggle="table" data-search="true">
     <thead>
         <tr>
@@ -51,10 +57,13 @@
             <td>{{ item.get_done_display }}</td>
             <td>{{ item.note }}</td>
         </tr>
-        {% empty %}
-        <tr>Chưa có sản phẩm nào</tr>
         {% endfor %}
 
     </tbody>
 </table>
+{% else %}
+<h2>Chưa có sản phẩm nào</h2>
+{% endif %}
+
+
 {% endblock %}

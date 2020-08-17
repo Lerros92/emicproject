@@ -5,7 +5,8 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Note, Item
-from .forms import NoteForm, ItemAddForm
+from .forms import NoteForm, ItemAddForm, NoteUpdateForm
+from .forms import DateInput
 # Create your views here.
 
 #Replace default DateInput
@@ -55,12 +56,13 @@ def NoteDetail(request, pk):
         try:
             note_detail = Note.objects.get(id=int(pk))
         except:
-            return HttpResponse('Error')
+            return HttpResponse('Không có số phiếu này')
         context = {
             'note_detail': note_detail,
-            'items': note_detail.item.all()
+            'items': note_detail.item.all(),
+            'form': ItemAddForm
         }
-        return render(request, 'note_detail.html', context)
+        return render(request, 'warranty/note_detail.html', context)
 
 class ItemUpdate(generic.UpdateView):
     model = Item
@@ -83,9 +85,23 @@ def AddItem(request):
             add_item.note = form.cleaned_data['note']
             add_item.done = form.cleaned_data['done']
             add_item.save()
-            return redirect('warranty:items')
+            return redirect('warranty:note_detail', pk=add_item.noteNumber.id)
         else:
             return HttpResponse("Form is not valid")
     else:
         form = ItemAddForm()
         return render(request, 'warranty/additem_page.html', {'form':form})
+
+class NoteUpdate(UpdateView):
+    model = Note
+    form_class = NoteUpdateForm
+    template_name = 'warranty/note_update.html'
+    # success_url = reverse_lazy('warranty:notes')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['noteNumber']=self.object.noteNumber
+        return context
+
+    def get_success_url(self, **kwargs):         
+        return reverse_lazy("warranty:note_detail", args=(self.object.id,))
