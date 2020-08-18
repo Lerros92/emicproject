@@ -1,0 +1,13 @@
+{% extends 'warranty/layout.html'%}
+{% load crispy_forms_tags %}
+{% block title%}Sửa thông sản phẩm{% endblock %}
+{% block content %}
+<h1>Số phiếu tiếp nhận {{ noteNumber }}</h1>
+<hr>
+<form action="" method="post">{% csrf_token %}
+
+        {{ form|crispy }}
+
+    <button type="submit" class="btn btn-outline-primary">Lưu</button>
+</form>
+{% endblock %}

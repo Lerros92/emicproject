@@ -1,0 +1,15 @@
+{% extends 'warranty/layout.html'%}
+{% load crispy_forms_tags %}
+{% block title%}Thêm phiếu tiếp nhận{% endblock %}
+{% block content %}
+
+<form action="" method="post">{% csrf_token %}
+    <div>
+        <h1 class="text-center">Thêm mới phiếu tiếp nhận</h1>
+    </div>
+    {{ form.non_field_errors }}
+        {{ form|crispy }}
+
+    <button type="submit" class="btn btn-primary">Thêm mới</button>
+</form>
+{% endblock %}
