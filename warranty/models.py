@@ -34,3 +34,12 @@ class Item(models.Model):
 
     def __str__(self):
         return f"{self.itemName} -> {self.noteNumber}"
+
+class ItemLog(models.Model):
+    item = models.ForeignKey(Item, on_delete=models.CASCADE, related_name="log", verbose_name="Sản phẩm")
+    content = models.TextField(blank=False, verbose_name="Nội dung")
+    date = models.DateField(null=False, verbose_name="Ngày thực hiện")
+    note = models.TextField(blank=True, verbose_name="Ghi chú")
+
+    def __str__(self):
+        return f"{self.item} - {self.content} - {self.date}"
