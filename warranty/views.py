@@ -66,7 +66,8 @@ def NoteDetail(request, pk):
 
 class ItemUpdate(generic.UpdateView):
     model = Item
-    exclude = ['noteNumber']
+    # exclude = ['noteNumber']
+    fields = '__all__'
 
 def AddItem(request):
     if request.method == 'POST':
