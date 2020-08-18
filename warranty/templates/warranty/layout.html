@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="{% static 'bootstrap-table.min.css' %}">
     <title>{% block title %}{% endblock %}</title>
 </head>
-<body class="container">
+<body>
+  <div class="jumbotron">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
@@ -26,7 +27,7 @@
     <div>
     {% block content %}{% endblock %}
     </div>
-
+  </div>
     <script src="{% static 'jquery-3.5.1.slim.min.js' %}"></script>
     <script src="{% static 'popper.min.js' %}"></script>
     <script src="{% static 'bootstrap.min.js' %}"></script>

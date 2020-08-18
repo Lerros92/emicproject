@@ -5,7 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Note, Item
-from .forms import NoteForm, ItemAddForm, NoteUpdateForm
+from .forms import NoteCreateForm, ItemAddForm, NoteUpdateForm, ItemUpdateForm
 from .forms import DateInput
 # Create your views here.
 
@@ -21,20 +21,13 @@ class NoteListView(generic.ListView):
 
 class ItemListView(generic.ListView):
     model = Item
+    
 
 class NoteCreate(CreateView):
     # form_class = NoteForm
     model = Note
-    fields = '__all__'
-    labels = {
-        'noteNumber': 'Số phiếu xuất:',
-        'customers': 'Tên khách hàng:',
-        'receiveDay': 'Ngày tiếp nhận',
-        'note': 'Ghi chú',
-    }
-    # widgets = {
-    #     'receiveDay': forms.DateInput,
-    # }
+    form_class = NoteCreateForm
+    template_name = 'warranty/note_create.html'
     success_url = reverse_lazy('warranty:notes')
 
 def AddNote(request):    
@@ -66,8 +59,16 @@ def NoteDetail(request, pk):
 
 class ItemUpdate(generic.UpdateView):
     model = Item
-    # exclude = ['noteNumber']
-    fields = '__all__'
+    form_class = ItemUpdateForm
+    template_name = 'warranty/item_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['noteNumber']=self.object.noteNumber
+        return context
+
+    def get_success_url(self, **kwargs):         
+        return reverse_lazy("warranty:note_detail", args=(self.object.noteNumber.id,))
 
 def AddItem(request):
     if request.method == 'POST':

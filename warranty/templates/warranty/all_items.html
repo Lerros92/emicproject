@@ -22,7 +22,7 @@
         {% for item in items %}
             <tr>
                 <td>
-                    <a href="{% url 'baohanh:notedetail' item.noteNumber.id   %}">{{ item.noteNumber.noteNumber }}</a>
+                    <a href="{% url 'warranty:note_detail' %}">{{ item.noteNumber }}</a>
                 </td>
                 <td>{{ item.itemName }}</td>
                 <td>{{ item.quantity }}</td>

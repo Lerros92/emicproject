@@ -24,7 +24,7 @@
                 {% for item in item_list %}
                 <tr>
                     <td>
-                        <a href="#">{{ item.noteNumber.noteNumber }}</a></td>
+                        <a href="{% url 'warranty:note_detail' item.noteNumber.id %}">{{ item.noteNumber.noteNumber }}</a></td>
                     <td><a href="{% url 'warranty:item_edit' item.id %}">{{ item.itemName }}</a></td>
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.get_itemGroup_display }}</td>

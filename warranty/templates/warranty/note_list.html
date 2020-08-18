@@ -17,7 +17,7 @@
                 
                 {% for note in note_list %}
                 <tr>
-                    <td>{{ note.noteNumber }}</td>
+                    <td><a href="{% url 'warranty:note_update' note.id %}">{{ note.noteNumber }}</a></td>
                     <td>{{ note.customers }}</td>
                     <td>{{ note.receiveDay|date:"j/n/Y" }}</td>
                     <td>{{ note.note }}</td>

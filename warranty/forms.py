@@ -4,16 +4,10 @@ from .models import Note, Item
 class DateInput(forms.DateInput):
     input_type = 'date'
 
-class NoteForm(forms.ModelForm):
+class NoteCreateForm(forms.ModelForm):
     class Meta:
         model = Note
         fields = '__all__'
-        labels = {
-            'noteNumber': 'Số phiếu tiếp nhận:',
-            'customers': 'Tên khách hàng:',
-            'receiveDay': 'Ngày tiếp nhận:',
-            'note': 'Ghi chú:',
-        }
         widgets = {
         'receiveDay': DateInput(),
         }
@@ -47,4 +41,13 @@ class NoteUpdateForm(forms.ModelForm):
         widgets = {
             'noteNumber': forms.HiddenInput(),
             'receiveDay': DateInput()
+        }
+
+class ItemUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Item
+        fields = '__all__'
+        widgets = {
+            'noteNumber': forms.HiddenInput(),
+            'deadline': DateInput()
         }
