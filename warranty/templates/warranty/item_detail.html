@@ -3,7 +3,7 @@
 {% block content %}
 
         {% if item %}
-        <h1 class="text-center">Danh sách sản phẩm bảo hành</h1>
+        <h1 class="text-center">Chi tiết sản phẩm</h1>
         <table data-toggle="table" data-search="true" data-resizable="true">
             <thead>
                 <tr>
@@ -39,5 +39,69 @@
         {% else %}
         <div class="text-center">Chưa có phiếu tiếp nhận nào</div>
         {% endif %}
+        <br>
+        <hr>
+        <h2 class="text-center">Tình trạng thực hiện bảo hành</h2>
+        <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#formModal">Thêm nội dung</button>
+        
+        {% if ItemLogs %}
+        <table data-toggle="table" data-resizable="true">
+            <thead>
+                <th>Nội dung</th>
+                <th>Ngày Tháng</th>
+                <th>Ghi chú</th>
+                <th>Xóa nội dung</th>
+            </thead>
+            <tbody>
+                {% for ItemLog in ItemLogs %}
+                <tr>
+                    <td>{{ ItemLog.content }}</td>
+                    <td>{{ ItemLog.date|date:"j/n/Y" }}</td>
+                    <td>{{ ItemLog.note }}</td>
+                    <td>{{ ItemLog.id }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+            
+        {% else %}
+            <div class="text-center">Chưa có nội dung nào</div>
+        {% endif %}
+            
+<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="formModalLabel">Thêm nội dung</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{% url 'warranty:log_add' %}" method="post">{% csrf_token %}
+                    <input type="hidden" name="item" value="{{ item.id }}" required>
+                    <div id="div_id_content" class="form-group">
+                        <label for="id_content" class=" requiredField">Nội dung</label>
+                        <textarea name="content" cols="40" rows="2" class="textarea form-control" required id="id_content"></textarea>
+                    </div>
+                
+                    <div id="div_id_date" class="form-group">
+                        <label for="id_date" class=" requiredField">Ngày thực hiện</label>
+                        <input type="date" name="date" class="dateinput form-control" required id="id_date">
+                    </div>
+                
+                    <div id="div_id_note" class="form-group">
+                        <label for="id_note" class="">Ghi chú</label>
+                        <textarea name="note" cols="40" rows="2" class="textarea form-control" id="id_note"></textarea>
+                    </div>
+                
+                
+                    <button type="submit" class="btn btn-primary">Thêm mới</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
 
 {% endblock %}

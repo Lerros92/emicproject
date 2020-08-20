@@ -5,8 +5,7 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
 from .models import Note, Item
-from .forms import NoteCreateForm, ItemAddForm, NoteUpdateForm, ItemUpdateForm
-from .forms import DateInput
+from .forms import NoteCreateForm, ItemAddForm, NoteUpdateForm, ItemUpdateForm, LogCreateForm
 # Create your views here.
 
 #Replace default DateInput
@@ -110,3 +109,20 @@ class NoteUpdate(UpdateView):
 
 class ItemDetailView(generic.DetailView):
     model = Item
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['ItemLogs']=self.object.log.all()
+        return context
+
+#Item log Create:
+
+def LogCreate(request):
+    if request.method == 'POST':
+        form = LogCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('warranty:item_detail', pk = form.cleaned_data["item"].id)
+        else:
+            return HttpResponse('Invalid form')
+        

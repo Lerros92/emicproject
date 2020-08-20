@@ -15,10 +15,17 @@ urlpatterns += [
     path('note/update/<int:pk>', views.NoteUpdate.as_view(), name='note_update'),
     # path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author_delete'),
 ]
+
 #ITEMS URLS:
 urlpatterns += [    
     path('items/add/', views.AddItem, name = 'item_add'),
     path('items', views.ItemListView.as_view(), name = 'items'),
     path('items/<int:pk>', views.ItemDetailView.as_view(), name = 'item_detail'),
     path('items/edit/<int:pk>', views.ItemUpdate.as_view(), name = 'item_edit'),
+]
+
+#ITEM LOG URLS:
+urlpatterns += [    
+    path('log/add/', views.LogCreate, name = 'log_add'),
+    
 ]

@@ -1,5 +1,5 @@
 from django import forms
-from .models import Note, Item
+from .models import Note, Item, ItemLog
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -51,3 +51,12 @@ class ItemUpdateForm(forms.ModelForm):
             'noteNumber': forms.HiddenInput(),
             'deadline': DateInput()
         }
+
+class LogCreateForm(forms.ModelForm):
+    """Form definition for LogCreate."""
+
+    class Meta:
+        """Meta definition for LogCreateform."""
+
+        model = ItemLog
+        fields = '__all__'
