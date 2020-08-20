@@ -107,3 +107,6 @@ class NoteUpdate(UpdateView):
 
     def get_success_url(self, **kwargs):         
         return reverse_lazy("warranty:note_detail", args=(self.object.id,))
+
+class ItemDetailView(generic.DetailView):
+    model = Item

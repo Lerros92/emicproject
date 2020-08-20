@@ -19,5 +19,6 @@ urlpatterns += [
 urlpatterns += [    
     path('items/add/', views.AddItem, name = 'item_add'),
     path('items', views.ItemListView.as_view(), name = 'items'),
+    path('items/<int:pk>', views.ItemDetailView.as_view(), name = 'item_detail'),
     path('items/edit/<int:pk>', views.ItemUpdate.as_view(), name = 'item_edit'),
 ]
