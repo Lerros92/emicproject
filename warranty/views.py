@@ -4,7 +4,7 @@ from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from django.http import HttpResponse
-from .models import Note, Item
+from .models import Note, Item, ItemLog
 from .forms import NoteCreateForm, ItemAddForm, NoteUpdateForm, ItemUpdateForm, LogCreateForm
 # Create your views here.
 
@@ -12,6 +12,7 @@ from .forms import NoteCreateForm, ItemAddForm, NoteUpdateForm, ItemUpdateForm, 
 
 
 #<---------------View for project--------------->
+#index
 def index(request):
     return HttpResponse("Hello world")
 
@@ -20,8 +21,9 @@ class NoteListView(generic.ListView):
 
 class ItemListView(generic.ListView):
     model = Item
-    
 
+#<-------------------Note Views------------------->
+#CREATE
 class NoteCreate(CreateView):
     # form_class = NoteForm
     model = Note
@@ -29,17 +31,7 @@ class NoteCreate(CreateView):
     template_name = 'warranty/note_create.html'
     success_url = reverse_lazy('warranty:notes')
 
-def AddNote(request):    
-    if request.method == 'POST':
-        form = NoteForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('warranty:notes')
-        else:
-            return render(request,'warranty/addnote_page.html',{'form':form})
-    else:
-        form = NoteForm()
-        return render(request,'warranty/addnote_page.html',{'form':form})
+#READ
 
 def NoteDetail(request, pk):
     if request.method == 'POST':
@@ -56,10 +48,12 @@ def NoteDetail(request, pk):
         }
         return render(request, 'warranty/note_detail.html', context)
 
-class ItemUpdate(generic.UpdateView):
-    model = Item
-    form_class = ItemUpdateForm
-    template_name = 'warranty/item_update.html'
+#UPDATE
+class NoteUpdate(UpdateView):
+    model = Note
+    form_class = NoteUpdateForm
+    template_name = 'warranty/note_update.html'
+    # success_url = reverse_lazy('warranty:notes')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -67,8 +61,17 @@ class ItemUpdate(generic.UpdateView):
         return context
 
     def get_success_url(self, **kwargs):         
-        return reverse_lazy("warranty:note_detail", args=(self.object.noteNumber.id,))
+        return reverse_lazy("warranty:note_detail", args=(self.object.id,))
 
+#DELETE
+class NoteDelete(DeleteView):
+    model = Note
+    template_name = "warranty/note_delete.html"
+    success_url = "warranty:notes"
+
+
+#<-------------------Item Views------------------->
+#CREATE
 def AddItem(request):
     if request.method == 'POST':
         form = ItemAddForm(request.POST)
@@ -93,20 +96,7 @@ def AddItem(request):
         form = ItemAddForm()
         return render(request, 'warranty/additem_page.html', {'form':form})
 
-class NoteUpdate(UpdateView):
-    model = Note
-    form_class = NoteUpdateForm
-    template_name = 'warranty/note_update.html'
-    # success_url = reverse_lazy('warranty:notes')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['noteNumber']=self.object.noteNumber
-        return context
-
-    def get_success_url(self, **kwargs):         
-        return reverse_lazy("warranty:note_detail", args=(self.object.id,))
-
+#READ
 class ItemDetailView(generic.DetailView):
     model = Item
 
@@ -115,6 +105,26 @@ class ItemDetailView(generic.DetailView):
         context['ItemLogs']=self.object.log.all()
         return context
 
+#UPDATE
+class ItemUpdate(generic.UpdateView):
+    model = Item
+    form_class = ItemUpdateForm
+    template_name = 'warranty/item_update.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['noteNumber']=self.object.noteNumber
+        return context
+
+    def get_success_url(self, **kwargs):         
+        return reverse_lazy("warranty:note_detail", args=(self.object.noteNumber.id,))
+
+class ItemDelete(DeleteView):
+    model = Item
+    template_name = "warranty/item_delete.html"
+    success_url = "warranty:items"
+
+#<-------------------ItemLog Views------------------->
 #Item log Create:
 
 def LogCreate(request):
@@ -125,4 +135,26 @@ def LogCreate(request):
             return redirect('warranty:item_detail', pk = form.cleaned_data["item"].id)
         else:
             return HttpResponse('Invalid form')
+
+
+class ItemLogDelete(DeleteView):
+    model = ItemLog
+    template_name = "warranty/log_delete.html"
+    
+    def get_success_url(self, **kwargs):         
+        return reverse_lazy("warranty:item_detail", args=(self.object.item.id,))
+
+
+# <------------------Test function------------------>
+def AddNote(request):    
+    if request.method == 'POST':
+        form = NoteForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('warranty:notes')
+        else:
+            return render(request,'warranty/addnote_page.html',{'form':form})
+    else:
+        form = NoteForm()
+        return render(request,'warranty/addnote_page.html',{'form':form})
         

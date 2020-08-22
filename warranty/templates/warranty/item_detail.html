@@ -36,6 +36,7 @@
                 </tr>            
             </tbody>
         </table>
+        <a href="{% url 'warranty:item_delete' item.id %}" class="btn btn-danger">Xóa Sản phẩm</a>
         {% else %}
         <div class="text-center">Chưa có phiếu tiếp nhận nào</div>
         {% endif %}
@@ -58,7 +59,9 @@
                     <td>{{ ItemLog.content }}</td>
                     <td>{{ ItemLog.date|date:"j/n/Y" }}</td>
                     <td>{{ ItemLog.note }}</td>
-                    <td>{{ ItemLog.id }}</td>
+                    <td>
+                        <a class="btn btn-danger" href="{% url 'warranty:log_delete' ItemLog.id %}">Xóa</a>
+                    </td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -93,9 +96,7 @@
                     <div id="div_id_note" class="form-group">
                         <label for="id_note" class="">Ghi chú</label>
                         <textarea name="note" cols="40" rows="2" class="textarea form-control" id="id_note"></textarea>
-                    </div>
-                
-                
+                    </div>               
                     <button type="submit" class="btn btn-primary">Thêm mới</button>
                 </form>
             </div>

@@ -19,17 +19,7 @@ class ItemAddForm(forms.ModelForm):
         model = Item
         # fields = '__all__'
         exclude = ['noteNumber']
-        labels = {
-            'itemName': "Tên sản phẩm",
-            'quantity': 'Số lượng',
-            'itemGroup': 'Nhóm sản phẩm',
-            'status': 'Tình trạng tiếp nhận',
-            'check': 'Kiểm tra',
-            'conclude': 'Đánh giá',
-            'deadline': 'Deadline',
-            'note': 'Ghi chú',
-            'done': "Xong/ Chưa xong"
-        }
+        help_texts = {'quantity': "Nhập số lượng, ít nhất bằng 1",}
         widgets = {
         'deadline': DateInput(),
         }

@@ -4,9 +4,10 @@
 {% block content %}
 <h1>{{ note_detail }}</h1>
 <hr>
-<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#formModal">Thêm sản
+<button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#formModal">Thêm sản
     phẩm</button>
 <a href="{% url 'warranty:note_update' note_detail.id %}" class="btn btn-outline-info">Sửa thông tin phiếu</a>
+<a href="{% url 'warranty:note_delete' note_detail.id %}" class="btn btn-danger">Xóa phiếu</a>
 <div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
@@ -21,8 +22,9 @@
                     <input type="hidden" name="noteNumber" value="{{ note_detail.id }}">
                     {{ form|crispy }}
                 
-                <button type="submit" class="btn btn-primary">Thêm</button>
+                <button type="submit" class="btn btn-outline-success">Thêm</button>
                 </form>
+                <br>
             </div>
 
         </div>
@@ -48,7 +50,9 @@
 
         {% for item in items %}
         <tr>
-            <td>{{ item.itemName }}</td>
+            <td>
+                <a href="{% url 'warranty:item_detail' item.id %}">{{ item.itemName }}</a>
+            </td>
             <td>{{ item.quantity }}</td>
             <td>{{ item.get_itemGroup_display }}</td>
             <td>{{ item.status }}</td>
