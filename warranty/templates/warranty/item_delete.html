@@ -1,0 +1,13 @@
+{% extends 'warranty/layout.html'%}
+{% load crispy_forms_tags %}
+{% block title%}Xóa sản phẩm{% endblock %}
+{% block content %}
+<form action="" method="post">{% csrf_token %}
+    <div>
+        <h1 class="text-center">Bạn có chắc muốn xóa sản phẩm {{ object }}</h1>
+    </div>
+
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a href="{% url 'warranty:item_detail' object.id %}" class="btn btn-success">Không</a>
+</form>
+{% endblock %}
