@@ -4,7 +4,7 @@ from . import views
 
 app_name = "warranty"
 urlpatterns = [
-    path('', views.index, name = "index"),
+    path('', views.ItemListView.as_view(template_name='warranty/index.html'), name = "index"),
     path('notes', views.NoteListView.as_view(), name = 'notes'),    
 ]
 

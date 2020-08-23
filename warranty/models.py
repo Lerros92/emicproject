@@ -31,7 +31,7 @@ class Item(models.Model):
     conclude = models.CharField(max_length=128, blank=True, verbose_name="Kết luận")
     deadline = models.DateField()
     note = models.TextField(blank=True)
-    done = models.BooleanField(verbose_name="Xong/ Chưa xong:", choices=[(True, "Xong"), (False, "Chưa xong")], default=False)
+    done = models.BooleanField(verbose_name="Xong/ Chưa xong:", choices=[(True, "Đã xong"), (False, "Chưa xong")], default=False)
     #null=False, default=(datetime.now() + timedelta(days=2)).date()
 
     def __str__(self):

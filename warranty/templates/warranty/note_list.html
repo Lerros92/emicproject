@@ -4,7 +4,15 @@
 
         {% if note_list %}
         <h1 class="text-center">Danh sách phiếu tiếp nhận</h1>
-        <table data-toggle="table" data-search="true">
+        <table
+        id="table"
+        data-toggle="table"
+        data-search="true"
+        data-resizable="true"
+        data-show-export="true"
+        data-show-toggle="true"
+        data-filter-control="true"
+        >
             <thead>
                 <tr>
                     <th>Số phiếu</th>

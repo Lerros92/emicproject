@@ -4,7 +4,15 @@
 
         {% if item_list %}
         <h1 class="text-center">Danh sách sản phẩm bảo hành</h1>
-        <table data-toggle="table" data-search="true" data-resizable="true">
+        <table
+        id="table"
+        data-toggle="table"
+        data-search="true"
+        data-resizable="true"
+        data-show-export="true"
+        data-show-toggle="true"
+        data-filter-control="true"
+        >
             <thead>
                 <tr>
                     <th data-width="5" data-width-unit="%">Số phiếu<br>tiếp nhận</th>

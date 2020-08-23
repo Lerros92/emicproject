@@ -1,9 +1,59 @@
-{% extends 'baohanh/layout.html'%}
-
-{% block title %}Trang chính{% endblock %}
-
+{% extends 'warranty/layout.html'%}
+{% block title%}Danh sách sản phẩm{% endblock %}
 {% block content %}
-<div class="jumbotron">
-    <h1>Hello World</h1>
-</div>
+
+        {% if item_list %}
+        <h1 class="text-center">Danh sách sản phẩm bảo hành</h1>
+        <table
+        id="table"
+        data-toggle="table"
+        data-search="true"
+        data-resizable="true"
+        data-show-export="true"
+        data-show-toggle="true"
+        data-filter-control="true"
+        >
+            <thead>
+                <tr>
+                    <th data-field="Customer" data-filter-control="input" data-width="5" data-width-unit="%">Khách hàng</th>
+                    <th data-width="20" data-width-unit="%">Tên sản phẩm</th>
+                    <th data-width="5" data-width-unit="%">Số<br>lượng</th>
+                    <th data-field="Group" data-filter-control="select" data-width="10" data-width-unit="%">Nhóm<br>sản<br>phẩm</th>
+                    <th data-width="10" data-width-unit="%">Ngày tiếp nhận</th>
+                    <th data-width="5" data-width-unit="%">Deadline</th>
+                    <th data-field="Done" data-filter-control="select" data-width="5" data-width-unit="%">Tiến độ</th>
+                    <th data-width="20" data-width-unit="%">Ghi chú</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                {% for item in item_list %}
+                <tr>
+                    <td>
+                        <a href="{% url 'warranty:note_detail' item.noteNumber.id %}">{{ item.noteNumber.customers }}</a></td>
+                    <td><a href="{% url 'warranty:item_edit' item.id %}">{{ item.itemName }}</a></td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.get_itemGroup_display }}</td>
+                    <td>{{ item.noteNumber.receiveDay|date:"Y/n/j" }}</td>
+                    <td>{{ item.deadline|date:"Y/n/j" }}</td>
+                    <td>{{ item.get_done_display }}</td>
+                    <td>{{ item.note }}</td>
+                </tr>
+                {% endfor %}
+                    
+            </tbody>
+        </table>
+        {% else %}
+        <div class="text-center">Chưa có phiếu tiếp nhận nào</div>
+        {% endif %}
+
+
+{% block script %}
+    <!-- <script>
+        $(function() {
+        $('#table').bootstrapTable()
+        })
+    </script> -->
+{% endblock %}
+    
 {% endblock %}
