@@ -21,8 +21,8 @@
                 <form action="{% url 'warranty:item_add' %}" method="post">{% csrf_token %}
                     <input type="hidden" name="noteNumber" value="{{ note_detail.id }}">
                     {{ form|crispy }}
-                
-                <button type="submit" class="btn btn-outline-success">Thêm</button>
+
+                    <button type="submit" class="btn btn-outline-success">Thêm</button>
                 </form>
                 <br>
             </div>
@@ -69,6 +69,16 @@
 {% else %}
 <h2>Chưa có sản phẩm nào</h2>
 {% endif %}
+
+{% block script %}
+<script>
+    $(document).ready(function () {
+        $("#id_quantity").attr({
+            "min": 1
+        });
+    });
+</script>
+{% endblock %}
 
 
 {% endblock %}

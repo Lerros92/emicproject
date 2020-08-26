@@ -13,39 +13,51 @@
         data-show-export="true"
         data-show-toggle="true"
         data-filter-control="true"
+        data-sortable="true"
         >
             <thead>
                 <tr>
-                    <th data-field="Customer" data-filter-control="input" data-width="5" data-width-unit="%">Khách hàng</th>
-                    <th data-width="20" data-width-unit="%">Tên sản phẩm</th>
-                    <th data-width="5" data-width-unit="%">Số lượng</th>
-                    <th data-field="Group" data-filter-control="select" data-width="10" data-width-unit="%">Nhóm sản phẩm</th>
-                    <th data-width="10" data-width-unit="%">Ngày tiếp nhận</th>
-                    <th data-width="5" data-width-unit="%">Deadline</th>
-                    <th data-field="Done" data-filter-control="select" data-width="5" data-width-unit="%">Tiến độ</th>
-                    <th data-width="20" data-width-unit="%">Ghi chú</th>
+                    <th class="text-center align-top" data-sortable="true">STT</th>
+                    <th class="text-center align-top" data-field="Customer" data-filter-control="input">Khách hàng</th>
+                    <th class="text-center align-top" data-field="CustomerGroup" data-filter-control="select">Nhóm khách hàng</th>
+                    <th class="text-center align-top">Tên sản phẩm</th>
+                    <th class="text-center align-top" data-field="ItemGroup" data-filter-control="select">Nhóm sản phẩm</th>
+                    <th class="text-center align-top">Số lượng</th>
+                    <th class="text-center align-top">Tình trạng</th>
+                    <th class="text-center align-top">Số phiếu TN</th>
+                    <th class="text-center align-top">Ngày TN</th>
+                    <th class="text-center align-top">Kết luận</th>
+                    <th class="text-center align-top">Deadline</th>
+                    <th class="text-center align-top">Số PX</th>
+                    <th class="text-center align-top">Ngày PX</th>
+                    <th class="text-center align-top" data-field="Done" data-filter-control="select">Tiến độ</th>
                 </tr>
             </thead>
             <tbody>
                 
                 {% for item in item_list %}
                 <tr>
-                    <td>
-                        <a href="{% url 'warranty:note_detail' item.noteNumber.id %}">{{ item.noteNumber.customers }}</a></td>
+                    <td>{{ item.noteNumber.numOrder }}</td>
+                    <td>{{ item.noteNumber.customers }}</td>
+                    <td>{{ item.noteNumber.get_customersObj_display }}</td>
                     <td><a href="{% url 'warranty:item_detail' item.id %}">{{ item.itemName }}</a></td>
-                    <td>{{ item.quantity }}</td>
                     <td>{{ item.get_itemGroup_display }}</td>
-                    <td>{{ item.noteNumber.receiveDay|date:"Y/n/j" }}</td>
-                    <td>{{ item.deadline|date:"Y/n/j" }}</td>
+                    <td>{{ item.quantity }}</td>
+                    <td>{{ item.status }}</td>
+                    <td><a href="{% url 'warranty:note_detail' item.noteNumber.id %}">{{ item.noteNumber.noteNumber }}</a></td>
+                    <td>{{ item.noteNumber.receiveDay|date:"Y/m/d" }}</td>
+                    <td>{{ item.conclude }}</td>
+                    <td>{{ item.deadline|date:"Y/m/d" }}</td>
+                    <td>{{ item.numExport }}</td>
+                    <td>{{ item.dayExport|date:"Y/m/d" }}</td>
                     <td>{{ item.get_done_display }}</td>
-                    <td>{{ item.note }}</td>
                 </tr>
                 {% endfor %}
                     
             </tbody>
         </table>
         {% else %}
-        <div class="text-center">Chưa có phiếu tiếp nhận nào</div>
+        <div class="text-center">Chưa có sản phẩm nào</div>
         {% endif %}
 
 

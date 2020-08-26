@@ -10,10 +10,11 @@ urlpatterns = [
 
 #NOTES URLS:
 urlpatterns += [  
-    path('note/create/', views.NoteCreate.as_view(), name='note_create'),
-    path('note/detail/<int:pk>', views.NoteDetail, name='note_detail'),
-    path('note/update/<int:pk>', views.NoteUpdate.as_view(), name='note_update'),
-    path('note/delete/<int:pk>', views.NoteDelete.as_view(), name='note_delete'),
+    # path('note/create/', views.NoteCreate.as_view(), name='note_create'),
+    path('notes/create/', views.CreateNote, name='note_create'),
+    path('notes/detail/<int:pk>', views.NoteDetail, name='note_detail'),
+    path('notes/update/<int:pk>', views.NoteUpdate.as_view(), name='note_update'),
+    path('notes/delete/<int:pk>', views.NoteDelete.as_view(), name='note_delete'),
     # path('author/<int:pk>/delete/', views.AuthorDelete.as_view(), name='author_delete'),
 ]
 

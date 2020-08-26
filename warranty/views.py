@@ -24,6 +24,25 @@ class ItemListView(generic.ListView):
 
 #<-------------------Note Views------------------->
 #CREATE
+def CreateNote(request):
+    if request.method == 'POST':
+        form = NoteCreateForm(request.POST)
+        if form.is_valid():
+            add_Note = Note()
+            add_Note.noteNumber = form.cleaned_data['noteNumber']
+            add_Note.customers = form.cleaned_data['customers']
+            add_Note.customersObj = form.cleaned_data['customersObj']
+            add_Note.receiveDay = form.cleaned_data['receiveDay']
+            add_Note.note = form.cleaned_data['note']
+            add_Note.numOrder = Note.objects.all().count() + 1
+            add_Note.save()
+            return redirect('warranty:notes')
+        else:
+            return HttpResponse('Dữ liệu nhập vào không hợp lệ')
+    else:
+        form = NoteCreateForm()
+        return render(request, 'warranty/note_create.html', {'form': form})
+
 class NoteCreate(CreateView):
     # form_class = NoteForm
     model = Note

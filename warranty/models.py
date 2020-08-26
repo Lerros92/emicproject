@@ -5,10 +5,17 @@ from django.core.validators import MinValueValidator
 # Create your models here.
 
 class Note(models.Model):
+    customerGroup = [
+        ('DAILY', 'Đại lý'),
+        ('NPC', 'NPC'),
+        ('SPC', 'SPC'),
+    ]
     noteNumber = models.CharField(max_length=10, unique=True,error_messages={'unique':"Số phiếu này đã có"}, verbose_name="Số phiếu")
     customers = models.CharField(max_length=50, null=False, verbose_name="Khách hàng")
+    customersObj = models.CharField(choices=customerGroup, max_length=50, verbose_name="Nhóm khách hàng", null=True)
     receiveDay = models.DateField(null=False, verbose_name="Ngày tiếp nhận")
     note = models.TextField(blank=True, verbose_name="Ghi chú")
+    numOrder = models.IntegerField(verbose_name="Thứ tự", null=True)
 
     def __str__(self):
         return f"{self.noteNumber} - {self.customers} - {self.receiveDay}"
@@ -30,7 +37,9 @@ class Item(models.Model):
     check = models.CharField(max_length=128, blank=True, verbose_name="Đánh giá")
     conclude = models.CharField(max_length=128, blank=True, verbose_name="Kết luận")
     deadline = models.DateField()
-    note = models.TextField(blank=True)
+    note = models.TextField(blank=True, verbose_name="Ghi chú")
+    numExport = models.CharField(max_length=10, verbose_name="Số phiếu xuất", blank=True)
+    dayExport = models.DateField(verbose_name="Ngày xuất", null=True, blank=True)
     done = models.BooleanField(verbose_name="Xong/ Chưa xong:", choices=[(True, "Đã xong"), (False, "Chưa xong")], default=False)
     #null=False, default=(datetime.now() + timedelta(days=2)).date()
 

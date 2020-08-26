@@ -7,7 +7,8 @@ class DateInput(forms.DateInput):
 class NoteCreateForm(forms.ModelForm):
     class Meta:
         model = Note
-        fields = '__all__'
+        exclude = ['numOrder']
+        # fields = '__all__'
         widgets = {
         'receiveDay': DateInput(),
         }
@@ -30,6 +31,7 @@ class NoteUpdateForm(forms.ModelForm):
         fields = '__all__'
         widgets = {
             'noteNumber': forms.HiddenInput(),
+            'numOrder': forms.HiddenInput(),
             'receiveDay': DateInput()
         }
 
