@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
     <link href="{% static 'css/jquery.resizableColumns.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/bootstrap-table.min.css' %}">
     <title>{% block title %}{% endblock %}</title>
@@ -14,6 +15,9 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav mr-auto">
+            <li class="nav-item acvtive">
+              <a class="nav-link" href="{% url 'warranty:index' %}">Trang chủ</a>
+            </li>
             <li class="nav-item acvtive">
               <a class="nav-link" href="{% url 'warranty:notes' %}">Phiếu tiếp nhận</a>
             </li>

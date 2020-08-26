@@ -8,6 +8,7 @@
         id="table"
         data-toggle="table"
         data-search="true"
+        data-search-on-enter-key="true"
         data-resizable="true"
         data-show-export="true"
         data-show-toggle="true"
@@ -15,11 +16,11 @@
         >
             <thead>
                 <tr>
-                    <th data-width="5" data-width-unit="%">Số phiếu<br>tiếp nhận</th>
+                    <th data-width="5" data-width-unit="%">Số phiếu tiếp nhận</th>
                     <th data-width="20" data-width-unit="%">Tên sản phẩm</th>
-                    <th data-width="5" data-width-unit="%">Số<br>lượng</th>
-                    <th data-width="10" data-width-unit="%">Nhóm<br>sản<br>phẩm</th>
-                    <th data-width="10" data-width-unit="%">Tình trạng<br>tiếp nhận</th>
+                    <th data-width="5" data-width-unit="%">Số lượng</th>
+                    <th data-width="10" data-width-unit="%">Nhóm sản phẩm</th>
+                    <th data-width="10" data-width-unit="%">Tình trạng tiếp nhận</th>
                     <th data-width="10" data-width-unit="%">Đánh giá</th>
                     <th data-width="10" data-width-unit="%">Kết luận</th>
                     <th data-width="5" data-width-unit="%">Deadline</th>
@@ -33,7 +34,7 @@
                 <tr>
                     <td>
                         <a href="{% url 'warranty:note_detail' item.noteNumber.id %}">{{ item.noteNumber.noteNumber }}</a></td>
-                    <td><a href="{% url 'warranty:item_edit' item.id %}">{{ item.itemName }}</a></td>
+                    <td><a href="{% url 'warranty:item_detail' item.id %}">{{ item.itemName }}</a></td>
                     <td>{{ item.quantity }}</td>
                     <td>{{ item.get_itemGroup_display }}</td>
                     <td>{{ item.status }}</td>
